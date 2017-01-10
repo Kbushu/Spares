@@ -36,26 +36,32 @@ shinyUI(fluidPage(
                   min = 1,
                   max = 8000,
                   value = 2016),
+      
       h4("Calendar Time"),
       p("1 Week  = 168 Hours"),
       p("3 Months  = 2160 Hours"),
       p("1 Year  = 8760 Hours"),
       
+      sliderInput("bm",
+                  "Target Service Level:",
+                  min = 0.5,
+                  max = 1,
+                  value = 0.85,
+                  step = 0.05),
+      
       numericInput("Spares",
                   "Numbers of Spares:",
                   min = 1,
                   max = 120,
-                  value = 7),
-      p("A quantity of"),
-      verbatimTextOutput("tgt")
+                  value = 7)
     ),
 
     # Show a plot of the generated distribution
     mainPanel(
       h3("Spares Calculation Result"),
-      h4("The total replacements of"),
-      verbatimTextOutput("klt"),
+      plotOutput("partPlot"),
+      p("Recommended quantity to achieve target service level:"),
       verbatimTextOutput("tgt"),
-      plotOutput("partPlot")
+      verbatimTextOutput("Achievedpr")
     )
   )))
