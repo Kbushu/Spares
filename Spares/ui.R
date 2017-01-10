@@ -23,26 +23,39 @@ shinyUI(fluidPage(
                    min = 1,
                    max = 1000,
                    value = 20),
-       sliderInput("Spares",
-                   "Numbers of Spares:",
-                   min = 1,
-                   max = 120,
-                   value = 7),
+       
       sliderInput("Lambda",
                   "Failure Rate/1000Hr:",
                   min = 0.001,
                   max = 100,
-                  value = .1),
+                  value = 0.1,
+                  step = 0.1),
       
       sliderInput("Time",
-                  "Hours Calendar Time:",
+                  "Reorder interval:",
                   min = 1,
                   max = 8000,
-                  value = 2016)
+                  value = 2016),
+      h4("Calendar Time"),
+      p("1 Week  = 168 Hours"),
+      p("3 Months  = 2160 Hours"),
+      p("1 Year  = 8760 Hours"),
+      
+      numericInput("Spares",
+                  "Numbers of Spares:",
+                  min = 1,
+                  max = 120,
+                  value = 7),
+      p("A quantity of"),
+      verbatimTextOutput("tgt")
     ),
 
     # Show a plot of the generated distribution
     mainPanel(
-       plotOutput("partPlot")
+      h3("Spares Calculation Result"),
+      h4("The total replacements of"),
+      verbatimTextOutput("klt"),
+      verbatimTextOutput("tgt"),
+      plotOutput("partPlot")
     )
   )))
