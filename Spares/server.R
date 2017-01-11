@@ -30,7 +30,13 @@ shinyServer(function(input, output) {
     # draw the plot
     plot_ly(x = klt, 
          y = pr,
-         mode = "markers")
+         size = 10,
+         type = "scatter",
+         mode = "markers") %>%
+      layout(title = "Sparing Plot",
+             xaxis = list(title = "Replacements"), 
+             yaxis = list(title = "Service Level %",
+                          range = c(0,1)))
     #      ylab = "Service Level %",
     #      xlab = "Part Replacements",
     #      ylim = c(0,1),

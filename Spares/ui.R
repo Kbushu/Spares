@@ -30,7 +30,7 @@ shinyUI(fluidPage(
                   min = 0.001,
                   max = 100,
                   value = 0.1,
-                  step = 0.1),
+                  step = 0.001),
       
       sliderInput("Time",
                   "Reorder interval:",
@@ -43,23 +43,27 @@ shinyUI(fluidPage(
       p("3 Months  = 2160 Hours"),
       p("1 Year  = 8760 Hours"),
       
+      numericInput("Spares",
+                   "Numbers of Spares:",
+                   min = 1,
+                   max = 120,
+                   value = 7),
+      
       sliderInput("bm",
                   "Target Service Level:",
                   min = 0.5,
                   max = 1,
                   value = 0.85,
-                  step = 0.05),
-      
-      numericInput("Spares",
-                  "Numbers of Spares:",
-                  min = 1,
-                  max = 120,
-                  value = 7)
+                  step = 0.05)
     ),
 
     # Show a plot of the generated distribution
     mainPanel(
-      h3("Spares Calculation Result"),
+      p("1. Start by selecting the number of parts that's in operation"),
+      p("2. Identify the failure rate, how often do you need to replace it?"),
+      p("3. How often do you reorder spares?"),
+      p("4. Adjust quantity of spares to achieve desired service level."),
+      p("Note: Use the target service level to recommend a quantity, then play around."),
       plotlyOutput("partPlot"),
       p("Recommended quantity to achieve target service level:"),
       verbatimTextOutput("tgt"),
