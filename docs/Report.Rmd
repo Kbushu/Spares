@@ -45,4 +45,5 @@ Quantity and Service Level
 If a service level of 85% is required, then 8 items in stock would be adequate,
 
 Reference: ]Logistics Engineering and Management, Blanchard, International Edition
+Source code on git: https://github.com/Kbushu/Spares
 
