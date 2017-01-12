@@ -19,11 +19,11 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-      p("1. Start by selecting the number of parts that's in operation"),
-      p("2. Identify the failure rate, how often do you need to replace it?"),
-      p("3. How often do you reorder spares?"),
-      p("4. Adjust quantity of spares to achieve desired service level."),
-      p("Note: Use the target service level to recommend a quantity, then play around."),
+      p("1. Start with number of items in use."),
+      p("2. How often do you replace it?"),
+      p("3. How often do you reorder?"),
+      p("4. Adjust spares quantity to achieve desired service level."),
+      p("Use the target service level as guideline, then play around."),
        sliderInput("Parts",
                    "Number of parts:",
                    min = 1,

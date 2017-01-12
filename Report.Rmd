@@ -1,0 +1,48 @@
+---
+title: "Spares"
+author: "K. Huisamen"
+date: "12 January 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+During the life of equipment there are some parts that often need to be replaced to ensure that the equipment can keep on operating. For example, your car need regular services during which oil-filter amongst others would be replaced. The service centre that performs the maintenance on your car need to have the right parts (like the oil filter) in their storeroom.  __How do they know how many filters to keep in stock?__
+
+## Methods
+Determining spare part quantity is a function of probability, the probability of having an item available when needed.  The Poisson distribution (https://en.wikipedia.org/wiki/Poisson_distribution) is often used in determining the probability of future events, based on the event interval in the past.
+
+The spares calculator make use of the Poisson distribution to determine optimal spare quantity, using the probability of having a spare as a supply chain service level.
+https://kbushu.shinyapps.io/Spares/
+
+## Calculation
+
+Using R built in function for poisson test.
+
+```{r, echo=TRUE}
+k <- 20 # number of parts
+l <- 0.1 # failures per 1000 operating hours
+t <- 2016 #calendar hours 2016=3months
+klt <- k*l*t/1000
+pr <- poisson.test(T = klt, x = 7, alternative = "less")$p.value
+```
+
+Suppose we have equipment containing `r k` parts that is all the same, with failures about every `r round(1/(l/1000),0)` operating hours, operating 24 hours a day. We procure spares at `r t/672` month intervals.
+
+## Results
+
+Quantity and Service Level
+
+- 7 = `r round(poisson.test(T = klt, x = 4, alternative = "less")$p.value,2)`
+
+- 8 = `r round(poisson.test(T = klt, x = 6, alternative = "less")$p.value,2)`
+
+- 9 = `r round(poisson.test(T = klt, x = 8, alternative = "less")$p.value,2)`
+
+If a service level of 85% is required, then 8 items in stock would be adequate,
+
+Reference: ]Logistics Engineering and Management, Blanchard, International Edition
+
