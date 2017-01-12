@@ -13,6 +13,7 @@ library(plotly)
 # Define server logic required to draw a plot
 shinyServer(function(input, output) {
   output$partPlot <- renderPlotly({
+    #Calculate outputs from inputs
     klt <- input$Parts*input$Lambda*input$Time/1000
     output$klt = renderPrint(klt)
     pr <- poisson.test(T = klt, x = input$Spares, alternative = "less")$p.value
@@ -27,27 +28,28 @@ shinyServer(function(input, output) {
     }
     output$Achievedpr <- renderPrint(Achievedpr)
     output$tgt <- renderPrint(Stock)
+    #Set benchmark values to show on plot
+    a <- list(
+      x = klt,
+      y = Achievedpr,
+      text = "Target",
+      xref = "x",
+      yref = "y",
+      showarrow = TRUE,
+      arrowhead = 7,
+      ax = 20,
+      ay = 10
+    )
     # draw the plot
     plot_ly(x = klt, 
          y = pr,
-         size = 10,
+         size = 1,
          type = "scatter",
          mode = "markers") %>%
       layout(title = "Sparing Plot",
              xaxis = list(title = "Replacements"), 
              yaxis = list(title = "Service Level %",
-                          range = c(0,1)))
-    #      ylab = "Service Level %",
-    #      xlab = "Part Replacements",
-    #      ylim = c(0,1),
-    #      xlim = c(0.01, 100),
-    #      col="blue")
-    # abline(h = pr, col="red",lwd=5)
-    # abline(v = klt, col="red",lwd=5)
-    # text(80, .97, paste("Service = ", 100*round(pr, 2),"%"))
-    # text(80, .8, paste("Spares = ", input$Spares))
-    # text(80, .7, paste("Replacements = ", round(klt, 2)))
-
+                          range = c(0,1)))  %>%
+      layout(annotations = a)
   })
-  
 })

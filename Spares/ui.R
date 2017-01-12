@@ -15,10 +15,15 @@ shinyUI(fluidPage(
   
   # Application title
   titlePanel("Spares Calculator"),
-  
+
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
+      p("1. Start by selecting the number of parts that's in operation"),
+      p("2. Identify the failure rate, how often do you need to replace it?"),
+      p("3. How often do you reorder spares?"),
+      p("4. Adjust quantity of spares to achieve desired service level."),
+      p("Note: Use the target service level to recommend a quantity, then play around."),
        sliderInput("Parts",
                    "Number of parts:",
                    min = 1,
@@ -34,39 +39,32 @@ shinyUI(fluidPage(
       
       sliderInput("Time",
                   "Reorder interval:",
-                  min = 1,
-                  max = 8000,
+                  min = 0,
+                  max = 8760,
+                  step = 168,
                   value = 2016),
-      
-      h4("Calendar Time"),
       p("1 Week  = 168 Hours"),
-      p("3 Months  = 2160 Hours"),
-      p("1 Year  = 8760 Hours"),
-      
+      p("3 Months  = 2016 Hours"),
+      p("1 Year  = 8760 Hours")
+    ),
+
+    # Show a plot of the generated distribution
+    mainPanel(
       numericInput("Spares",
-                   "Numbers of Spares:",
+                   "Adjust spares to meet desired service level:",
                    min = 1,
-                   max = 120,
+                   max = 1000,
                    value = 7),
-      
+      plotlyOutput("partPlot"),
       sliderInput("bm",
                   "Target Service Level:",
                   min = 0.5,
                   max = 1,
                   value = 0.85,
-                  step = 0.05)
-    ),
-
-    # Show a plot of the generated distribution
-    mainPanel(
-      p("1. Start by selecting the number of parts that's in operation"),
-      p("2. Identify the failure rate, how often do you need to replace it?"),
-      p("3. How often do you reorder spares?"),
-      p("4. Adjust quantity of spares to achieve desired service level."),
-      p("Note: Use the target service level to recommend a quantity, then play around."),
-      plotlyOutput("partPlot"),
+                  step = 0.05),
       p("Recommended quantity to achieve target service level:"),
       verbatimTextOutput("tgt"),
+      p("Calculated Service level:"),
       verbatimTextOutput("Achievedpr")
     )
   )))
