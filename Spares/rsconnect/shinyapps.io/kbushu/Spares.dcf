@@ -2,9 +2,9 @@ name: Spares
 title: Spares
 account: kbushu
 server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
 appId: 150392
-bundleId: 677159
+bundleId: 7771429
 url: https://kbushu.shinyapps.io/Spares/
-when: 1484229620.02941
 asMultiple: FALSE
 asStatic: FALSE

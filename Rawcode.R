@@ -14,8 +14,8 @@ while(pr < 0.85){
   pr <- poisson.test(T = klt, x = Spares, alternative = "less")$p.value
 }
 
-  pr <- poisson.test(T = klt, x = Spares, alternative = "less")$p.value
-}
+# pr <- poisson.test(T = klt, x = Spares, alternative = "less")$p.value
+
 
 myPlot <- function(Spares, Parts, Lambda, Time) {
   klt <- Parts*Lambda*Time/1000

@@ -38,7 +38,7 @@ shinyUI(fluidPage(
                   step = 0.001),
       
       sliderInput("Time",
-                  "Reorder interval:",
+                  "Reorder interval (hrs):",
                   min = 0,
                   max = 8760,
                   step = 168,
